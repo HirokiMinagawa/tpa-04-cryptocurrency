@@ -3,39 +3,33 @@
     <h1>Cryptocurrency Chart</h1>
     <p>[BTC] (JPY)</p>
     <div class="metrics-container">
-      <div class="metric-container">
-        <div class="metric-label">Metric Name</div>
-        <div class="metric-value">Metric Value</div>
-      </div>
-      <div class="metric-container">
-        <div class="metric-label">Metric Name</div>
-        <div class="metric-value">Metric Value</div>
-      </div>
-      <div class="metric-container">
-        <div class="metric-label">Metric Name</div>
-        <div class="metric-value">Metric Value</div>
-      </div>
-      <div class="metric-container">
-        <div class="metric-label">Metric Name</div>
-        <div class="metric-value">Metric Value</div>
-      </div>
-      <div class="metric-container">
-        <div class="metric-label">Metric Name</div>
-        <div class="metric-value">Metric Value</div>
-      </div>
-      <div class="metric-container">
-        <div class="metric-label">Metric Name</div>
-        <div class="metric-value">Metric Value</div>
-      </div>
+      <Metric title="Metric Name" :value="value"></Metric>
+      <Metric title="Metric Name" :value="value"></Metric>
+      <Metric title="Metric Name" :value="value"></Metric>
+      <Metric title="Metric Name" :value="value"></Metric>
+      <Metric title="Metric Name" :value="value"></Metric>
+      <Metric title="Metric Name" :value="value"></Metric>
     </div>
-    <div>TODO: Chart</div>
+    <Chart></Chart>
     <h5>TECH PLAY ACADEMY</h5>
   </div>
 </template>
 
 <script>
+import Metric from './components/Metric.vue';
+import Chart from './components/Chart.vue';
+
 export default {
   name: 'App',
+  components: {
+    Metric,
+    Chart,
+  },
+  data: function() {
+    return {
+      value: 'Metric Value',
+    };
+  }
 };
 </script>
 
@@ -52,13 +46,5 @@ export default {
 .metrics-container {
   display: flex;
   justify-content: center;
-}
-
-.metric-container {
-  background: #ccc;
-  width: 120px;
-  height: 50px;
-  padding: 10px;
-  margin: 10px;
 }
 </style>
