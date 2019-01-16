@@ -3,12 +3,12 @@
     <h1>Cryptocurrency Chart</h1>
     <p>[BTC] (JPY)</p>
     <div class="metrics-container">
-      <Metric title="Metric Name" :value="value"></Metric>
-      <Metric title="Metric Name" :value="value"></Metric>
-      <Metric title="Metric Name" :value="value"></Metric>
-      <Metric title="Metric Name" :value="value"></Metric>
-      <Metric title="Metric Name" :value="value"></Metric>
-      <Metric title="Metric Name" :value="value"></Metric>
+      <Metric title="1 BTC <> JPY" :value="exchangeRate"></Metric>
+      <Metric title="24 Hour Change" :value="dayChange"></Metric>
+      <Metric title="24 Hour High" :value="dayHighRate"></Metric>
+      <Metric title="24 Hour Low" :value="dayLowRate"></Metric>
+      <Metric title="24 Hour Volume" :value="dayVolume"></Metric>
+      <Metric title="Market Cap" :value="marketCap"></Metric>
     </div>
     <Chart></Chart>
     <h5>TECH PLAY ACADEMY</h5>
@@ -27,7 +27,12 @@ export default {
   },
   data: function() {
     return {
-      value: 'Metric Value',
+      exchangeRate: 'Metric Value',
+      dayChange: 'Metric Value',
+      dayHighRate: 'Metric Value',
+      dayLowRate: 'Metric Value',
+      dayVolume: 'Metric Value',
+      marketCap: 'Metric Value',
     };
   }
 };
