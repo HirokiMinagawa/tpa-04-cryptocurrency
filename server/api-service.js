@@ -1,23 +1,15 @@
-const getHistoricalData = function() {
-  //GET: https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=JPY&limit=1440&api_key={key}
-  // [RES]
-  // {
-  //   "Response": "Success",
-  //   "Type": 100,
-  //   "Aggregated": false,
-  //   "Data": [
-  //       {
-  //           "time": 1547397780,
-  //           "close": 382810.22,
-  //           "high": 382899.87,
-  //           "low": 382696.24,
-  //           "open": 382808.15,
-  //           "volumefrom": 23.84,
-  //           "volumeto": 9180677.61
-  //       },
-  // ・・・
-
-  return Promise.resolve({});
+/**
+ * get historical data
+ * @function
+ * @param {string} cryptocurrency
+ * @param {string} target
+ * @return {Promese}
+ */
+const getHistoricalData = function(cryptocurrency = 'BTC', target = 'JPY') {
+  const fetchUrl = `https://min-api.cryptocompare.com/data/histominute?fsym=${cryptocurrency}&tsym=${target}&limit=1440`;
+  return fetch(fetchUrl)
+    .then(res => res.json())
+    .then(data => data.Data);
 };
 
 const getMarketInformation = function() {
