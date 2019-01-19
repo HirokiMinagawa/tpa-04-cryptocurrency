@@ -43,9 +43,9 @@ const getMarketInformation = function(cryptocurrency = 'BTC', target = 'JPY') {
     .then(res => res.json())
     .then(json => {
       const cryptInfo = json.data.filter(obj => obj.symbol === cryptocurrency);
-      const quoteJPY = cryptInfo[0].quote.JPY;
-      const volume_24h = numeral(quoteJPY.volume_24h).format('0,0.00 a').toUpperCase();
-      const market_cap = numeral(quoteJPY.market_cap).format('0,0.00 a').toUpperCase();
+      const quote = cryptInfo[0].quote;
+      const volume_24h = numeral(quote[target].volume_24h).format('0,0.00 a').toUpperCase();
+      const market_cap = numeral(quote[target].market_cap).format('0,0.00 a').toUpperCase();
       return {
         volume_24h,
         market_cap,
