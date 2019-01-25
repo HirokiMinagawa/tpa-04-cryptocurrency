@@ -34,7 +34,7 @@ export default {
       dayVolume: 'Metric Value',
       marketCap: 'Metric Value',
     };
-  }
+  },
 };
 </script>
 
