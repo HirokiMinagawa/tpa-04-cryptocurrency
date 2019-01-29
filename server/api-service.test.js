@@ -3,8 +3,17 @@ const { getMarketInformation } = require('./api-service');
 
 
 describe('getHistoricalData', () => {
-  test('1441の長さのデータを返す', async() => {
-    const historicalData = await getHistoricalData();
+  let historicalData;
+  beforeAll(async() => {
+    historicalData = await getHistoricalData();
+  });
+  test('timeとcloseというプロパティを持つ', () => {
+    for (let i = 0; i < historicalData.length; i++) {
+      expect(historicalData[i]).toHaveProperty('time');
+      expect(historicalData[i]).toHaveProperty('close');
+    }
+  });
+  test('1441の長さのデータを返す', () => {
     expect(historicalData).toHaveLength(1441);
   });
 });
