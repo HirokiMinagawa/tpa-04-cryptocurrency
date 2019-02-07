@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Cryptocurrency Chart</h1>
-    <p>[BTC] (JPY)</p>
+    <p>[{{ cryptocurrency }}] ({{ target }})</p>
     <div class="metrics-container">
       <Metric title="1 BTC <> JPY" :value="exchangeRate"></Metric>
       <Metric title="24 Hour Change" :value="dayChange"></Metric>
@@ -10,7 +10,11 @@
       <Metric title="24 Hour Volume" :value="dayVolume"></Metric>
       <Metric title="Market Cap" :value="marketCap"></Metric>
     </div>
-    <Chart></Chart>
+    <Chart
+      :chartData="datacollection"
+      :options="options"
+      :style="{height: '400px', width: '1200px', padding: '20px 100px'}"
+    />
     <h5>TECH PLAY ACADEMY</h5>
   </div>
 </template>
@@ -28,19 +32,33 @@ export default {
   },
   data: function() {
     return {
+      cryptocurrency: 'BTC',
+      target: 'JPY',
       exchangeRate: '',
       dayChange: '',
       dayHighRate: '',
       dayLowRate: '',
       dayVolume: '',
       marketCap: '',
+      datacollection: {
+        labels: [],
+        datasets: [
+          {
+            label: 'BTC',
+            data: [],
+            pointBackgroundColor: '#229aeb',
+            backgroundColor: ['rgba(145, 208, 253, 0.7)'],
+          },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+      },
     };
   },
   mounted: function() {
-    const cryptocurrency = 'BTC';
-    const target = 'JPY';
-    this.fetchMarketinfo(cryptocurrency, target);
-    this.fetchHistoricalData(cryptocurrency, target);
+    this.fetchMarketinfo(this.cryptocurrency, this.target);
+    this.fetchHistoricalData(this.cryptocurrency, this.target);
   },
   methods: {
     fetchMarketinfo: function(cryptocurrency, target) {
@@ -58,10 +76,18 @@ export default {
           const exchangeRateNow = arr[1440].close;
           this.exchangeRate = exchangeRateNow;
           this.dayChange = numeral(numeral(exchangeRateNow).value() - numeral(arr[0].close).value()).format('0,0.00');
-          const closeArr = arr.map(val => numeral(val.close).value());
+          const closeArr = arr.map(obj => numeral(obj.close).value());
           this.dayHighRate = numeral(Math.max.apply(null, closeArr)).format('0,0.00');
           this.dayLowRate = numeral(Math.min.apply(null, closeArr)).format('0,0.00');
+          const timeArr = arr.map(obj => obj.time);
+          this.updateDataCollection(timeArr, closeArr);
         });
+    },
+    updateDataCollection: function(timeArr, closeArr) {
+      const newDataCollection = Object.assign({}, this.datacollection);
+      newDataCollection.datasets[0].data = closeArr;
+      newDataCollection.labels = timeArr;
+      this.datacollection = newDataCollection;
     },
   }
 };
@@ -82,3 +108,4 @@ export default {
   justify-content: center;
 }
 </style>
+
